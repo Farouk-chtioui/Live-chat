@@ -38,5 +38,5 @@ window.Echo = new Echo({
     key: process.env.MIX_PUSHER_APP_KEY,
     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
     forceTLS: true,
-    authEndpoint: window.base_url + '/broadcasting/auth'
+    authEndpoint: '/broadcasting/auth' // Make sure this is correct
 });

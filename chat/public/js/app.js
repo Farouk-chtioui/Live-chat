@@ -1952,7 +1952,8 @@ window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__.default({
   key: "dbe45f386aee75718175",
   cluster: "eu",
   forceTLS: true,
-  authEndpoint: window.base_url + '/broadcasting/auth'
+  authEndpoint: '/broadcasting/auth' // Make sure this is correct
+
 });
 
 /***/ }),
@@ -2061,13 +2062,8 @@ window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__.default({
 
   setTimeout(function () {
     var current_user_id = $("#current_user").val();
-    window.Echo["private"]("App.Models.User.".concat(current_user_id)).listen('Status', function (e) {
-      // Update user's online status
-      if (e.status) {
-        console.log('User is online');
-      } else {
-        console.log('User is offline');
-      }
+    window.Echo["private"]("chat-message.".concat(current_user_id)).listen('.message.sent', function (e) {
+      displayReceiverMessage(e.message);
     });
   }, 200);
 })();
