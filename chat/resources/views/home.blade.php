@@ -6,8 +6,10 @@
                 <h3>Pick a user to chat with</h3>
                 <ul id="users">
                     @foreach($users as $user)
-                        <li><span class="label label-info">{{ $user->name }}</span> <a href="javascript:void(0);" class="chat-toggle" data-id="{{ $user->id }}" data-user="{{ $user->name }}">Open chat</a></li>
-                    @endforeach
+                    <div class="list-group" style="font-size: larger;">
+                        <li class="list-group-item d-flex justify-content-between align-items-center"><span class="label label-info">{{ $user->name }}</span> <a href="javascript:void(0);" class="chat-toggle" data-id="{{ $user->id }}" data-user="{{ $user->name }}">Open chat</a></li>
+                    </div>
+                        @endforeach
                 </ul>
             @else
                 <p>No users found! try to add a new user using another browser by going to <a href="{{ url('register') }}">Register page</a></p>

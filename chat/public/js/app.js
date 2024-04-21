@@ -1990,14 +1990,18 @@ window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__.default({
         }, 800, 'swing');
       }
     });
-  }); // on close chat close the chat box but don't remove it from the dom
-
+  });
   $(".close-chat").on("click", function (e) {
     $(this).parents("div.chat-opened").removeClass("chat-opened").slideUp("fast");
-  }); // on click the btn send the message
-
+  });
   $(".btn-chat").on("click", function (e) {
     send($(this).attr('data-to-user'), $("#chat_box_" + $(this).attr('data-to-user')).find(".chat_input").val(), null);
+  });
+  $(".chat_input").on("keypress", function (e) {
+    if (e.which == 13) {
+      e.preventDefault();
+      send($(this).parents(".chat-opened").find(".btn-chat").attr('data-to-user'), $(this).val(), null);
+    }
   });
   $(".emoji").on("click", function (e) {
     e.preventDefault();
@@ -2014,8 +2018,7 @@ window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__.default({
   $(".upload-frm").on("submit", function (e) {
     e.preventDefault();
     send($(this).parents(".chat-opened").find('.to_user_id').val(), null, $(this).find('.image')[0].files[0]);
-  }); // on change chat input text toggle the chat btn disabled state
-
+  });
   $(".chat_input").on("change keyup", function (e) {
     if ($(this).val() != "") {
       $(this).parents(".form-controls").find(".btn-chat").prop("disabled", false);
