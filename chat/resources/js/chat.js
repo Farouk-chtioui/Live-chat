@@ -120,9 +120,14 @@
     // here listen for pusher events
     setTimeout(() => {
         let current_user_id = $("#current_user").val();
-        window.Echo.private(`chat-message.${current_user_id}`)
-            .listen('.message.sent', (e) => {
-                displayReceiverMessage(e.message);
+        window.Echo.private(`App.Models.User.${current_user_id}`)
+            .listen('Status', (e) => {
+                // Update user's online status
+                if (e.status) {
+                    console.log('User is online');
+                } else {
+                    console.log('User is offline');
+                }
             });
     }, 200);
 })();
@@ -395,4 +400,3 @@ function noMoreTemplate()
 {
     return `<div class="no-more-messages text-center">No more messages</div>`;
 }
-console.log("test");

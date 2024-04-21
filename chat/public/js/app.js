@@ -2061,8 +2061,13 @@ window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__.default({
 
   setTimeout(function () {
     var current_user_id = $("#current_user").val();
-    window.Echo["private"]("chat-message.".concat(current_user_id)).listen('.message.sent', function (e) {
-      displayReceiverMessage(e.message);
+    window.Echo["private"]("App.Models.User.".concat(current_user_id)).listen('Status', function (e) {
+      // Update user's online status
+      if (e.status) {
+        console.log('User is online');
+      } else {
+        console.log('User is offline');
+      }
     });
   }, 200);
 })();
@@ -2292,8 +2297,6 @@ function getMessageBody(message) {
 function noMoreTemplate() {
   return "<div class=\"no-more-messages text-center\">No more messages</div>";
 }
-
-console.log("test");
 
 /***/ }),
 

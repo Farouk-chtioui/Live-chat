@@ -22,6 +22,8 @@ Route::post('/send', [MessagesController::class, 'postSendMessage']);
 
 Route::get('/fetch-old-messages', [MessagesController::class, 'getOldMessages']);
 
+Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
+
 Route::get('/emit', function () {
    \App\Events\MessageSent::broadcast(\App\Models\User::find(1));
 });
