@@ -4,53 +4,53 @@
     let scrollEvery = 0;
     let noMoreMessages = false;
     let alreadyLoadedLatestMessages = false;
-    
+
     $(".chat-toggle").on("click", function (e) {
         e.preventDefault();
-    
+
         let ele = $(this);
-    
+
         let user_id = ele.attr("data-id");
-    
+
         let username = ele.attr("data-user");
-    
+
         openChatBox(user_id, username,  () => {
-    
+
             let chatBox = $("#chat_box_" + user_id);
-    
+
             if(!chatBox.hasClass("chat-opened")) {
-    
+
                 chatBox.addClass("chat-opened").slideDown("fast");
-    
+
                 if(!alreadyLoadedLatestMessages) {
                     loadLatestMessages(chatBox, user_id, (response) => {
                         alreadyLoadedLatestMessages = true;
                     });
                 }
-    
+
                 chatBox.find(".chat-area").animate({scrollTop: chatBox.find(".chat-area").outerHeight(true)}, 800, 'swing');
             }
         });
     });
-    
+
     $(".close-chat").on("click", function (e) {
-    
+
         $(this).parents("div.chat-opened").removeClass("chat-opened").slideUp("fast");
     });
-    
+
 
     $(".btn-chat").on("click", function (e) {
         send($(this).attr('data-to-user'), $("#chat_box_" + $(this).attr('data-to-user')).find(".chat_input").val(), null);
     });
-    
-   
+
+
     $(".chat_input").on("keypress", function (e) {
         if (e.which == 13) {
             e.preventDefault(); 
             send($(this).parents(".chat-opened").find(".btn-chat").attr('data-to-user'), $(this).val(), null);
         }
     });
-   
+
 
     $(".emoji").on("click", function (e) {
         e.preventDefault();
@@ -123,6 +123,10 @@
         window.Echo.private(`chat-message.${current_user_id}`)
             .listen('.message.sent', (e) => {
                 displayReceiverMessage(e.message);
+            });
+        window.Echo.private(`App.Models.User.${current_user_id}`)
+            .listen('.Status', (e) => {
+                updateStatus(e.user_id, e.status);
             });
     }, 200);
 })();
@@ -395,3 +399,9 @@ function noMoreTemplate()
 {
     return `<div class="no-more-messages text-center">No more messages</div>`;
 }
+
+function updateStatus(user_id, status) {
+    const badge = status ? '<span class="badge bg-success">Online</span>' : '<span class="badge bg-danger">Offline</span>';
+    $(`#user_${user_id}_status`).html(badge);
+}
+

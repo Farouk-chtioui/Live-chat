@@ -1,24 +1,36 @@
 @extends('layouts.app2')
+
 @section('content')
-    <div class="row">
-        <div class="col-md-5">
-            @if($users->count() > 0)
-                <h3>Pick a user to chat with</h3>
-                <ul id="users">
-                    @foreach($users as $user)
-                    <div class="list-group" style="font-size: larger;">
-                        <li class="list-group-item d-flex justify-content-between align-items-center"><span class="label label-info">{{ $user->name }}</span> <a href="javascript:void(0);" class="chat-toggle" data-id="{{ $user->id }}" data-user="{{ $user->name }}">Open chat</a></li>
-                    </div>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="text-center mb-4">Pick a user to chat with</h2>
+                </div>
+                <div class="card-body">
+                    @if($users->count() > 0)
+                    <ul class="list-group">
+                        @foreach($users as $user)
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span class="badge {{ $user->status ? 'badge-success' : 'badge-danger' }} font-weight-bold h3" style="font-size: x-large;">{{ $user->name }}</span>
+                            <a href="javascript:void(0);" class="btn btn-primary btn-lg chat-toggle" data-id="{{ $user->id }}" data-user="{{ $user->name }}">Open chat</a>
+                        </li>
                         @endforeach
-                </ul>
-            @else
-                <p>No users found! try to add a new user using another browser by going to <a href="{{ url('register') }}">Register page</a></p>
-            @endif
+                    </ul>
+                    @else
+                    <p class="text-center lead">No users found! Try to add a new user using another browser by going to <a href="{{ url('register') }}">Register page</a></p>
+                    @endif
+                </div>
+            </div>
         </div>
     </div>
-    <form method="POST" action="{{ route('logout') }}">
+</div>
+
+<form method="POST" action="{{ route('logout') }}" class="mt-4 text-center">
     @csrf
-    <button type="submit">Logout</button>
+    <button type="submit" class="btn btn-outline-danger btn-lg">Logout</button>
 </form>
-    @include('chat-box')
+
+@include('chat-box')
 @endsection
