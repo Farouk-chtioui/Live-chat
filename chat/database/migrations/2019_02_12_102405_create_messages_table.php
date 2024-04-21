@@ -11,22 +11,19 @@ class CreateMessagesTable extends Migration
      *
      * @return void
      */
-
     public function up()
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedBigInteger('from_user');
             $table->unsignedBigInteger('to_user');
-            $table->text('content');
-    
+            $table->text('content')->nullable();
             $table->timestamps();
-    
-            $table->foreign('from_user')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('to_user')->references('id')->on('users')->onDelete('cascade');
+
+            $table->foreign('from_user')->references('id')->on('users');
+            $table->foreign('to_user')->references('id')->on('users');
         });
     }
-
 
     /**
      * Reverse the migrations.

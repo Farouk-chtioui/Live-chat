@@ -71,3 +71,47 @@ time {
         transform: rotate(359deg);
     }
 }
+.chat_input {
+    font-size: 15px;
+}
+
+.btn-chat {
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.no-more-messages {
+    background-color: #b32b2b;
+    margin: 3px;
+    margin-bottom: 6px;
+    padding: 3px;
+    font-size: 12px;
+    color: #fff;
+}
+
+.panel-footer {
+    padding-left: 3px !important;
+}
+
+.upload-btn {
+    font-size: 19px;
+    color: #2b2be6;
+}
+
+.emoji-list {
+    margin-top: 4px;
+}
+
+.emoji-list ul {
+    list-style-type: none;
+}
+
+.emoji-list ul li {
+    display: inline-block;
+    margin: 3px;
+}
+
+.emoji-list ul li a {
+    text-decoration: none;
+    font-size: 14px;
+}

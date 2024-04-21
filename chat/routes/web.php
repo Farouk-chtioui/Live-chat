@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MessagesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,18 +14,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/load-latest-messages', [MessagesController::class, 'getLoadLatestMessages']);
+
+Route::post('/send', [MessagesController::class, 'postSendMessage']);
+
+Route::get('/fetch-old-messages', [MessagesController::class, 'getOldMessages']);
+
+Route::get('/emit', function () {
+   \App\Events\MessageSent::broadcast(\App\Models\User::find(1));
 });
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::get('/', 'HomeController@index');
 
 Auth::routes();
