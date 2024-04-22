@@ -2065,6 +2065,9 @@ window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__.default({
     window.Echo["private"]("chat-message.".concat(current_user_id)).listen('.message.sent', function (e) {
       displayReceiverMessage(e.message);
     });
+    window.Echo["private"]("App.Models.User.".concat(current_user_id)).listen('.Status', function (e) {
+      updateStatus(e.user_id, e.status);
+    });
   }, 200);
 })();
 
@@ -2292,6 +2295,11 @@ function getMessageBody(message) {
 
 function noMoreTemplate() {
   return "<div class=\"no-more-messages text-center\">No more messages</div>";
+}
+
+function updateStatus(user_id, status) {
+  var badge = status ? '<span class="badge bg-success">Online</span>' : '<span class="badge bg-danger">Offline</span>';
+  $("#user_".concat(user_id, "_status")).html(badge);
 }
 
 /***/ }),

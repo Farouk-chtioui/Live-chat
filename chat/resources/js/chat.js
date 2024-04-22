@@ -83,7 +83,7 @@
             $(this).parents(".form-controls").find(".btn-chat").prop("disabled", true);
         }
     });
-
+    
     // handle the scroll top of any chat box
     // the idea is to load the last messages by date depending on last message
     // that's already loaded on the chat box
